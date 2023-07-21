@@ -31,13 +31,13 @@
       cmd: fish
       chdir: '/home/daryl/'
     register: shenv
-  - name: asdf plugin add elixir
+  - name: asdf plugin erlang
     ansible.builtin.shell: |
       asdf plugin add erlang
     args:
       executable
   - name: asdf install erlang (for Linux)
     ansible.builtin.shell: |
-      asdf insourceall erlang latest
+      asdf install erlang latest
 
 
