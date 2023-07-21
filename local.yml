@@ -3,4 +3,9 @@
   tasks: 
   - name: Install htop
     apt: name=htop
-
+  - name: asdf plugin add elixir
+    ansible.builtin.shell: |
+      asdf plugin add erlang
+  - name: asdf install erlang (for Linux)
+    ansible.builtin.shell: |
+      asdf install erlang latest
