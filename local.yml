@@ -39,11 +39,14 @@
       asdf plugin add erlang
     args:
       executable: fish
+    register: result
+    failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
   - name: asdf install erlang (for Linux)
     ansible.builtin.shell: |
       source /home/{{ userinstall }}/.asdf/asdf.fish
       asdf install erlang latest
     args:
       executable: fish
+
 
 
