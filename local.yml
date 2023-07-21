@@ -43,5 +43,7 @@
     ansible.builtin.shell: |
       source /home/{{ userinstall }}/.asdf/asdf.fish
       asdf install erlang latest
+    args:
+      executable: fish
 
 
