@@ -1,5 +1,6 @@
 - hosts: localhost
   become: true
+  become_user: daryl
   vars:
     userinstall: daryl
   tasks: 
@@ -47,6 +48,14 @@
       asdf install erlang latest
     args:
       executable: fish
+  - name: asdf plugin elix
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf plugin add erlang
+    args:
+      executable: fish
+    register: result
+    failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
 
 
 
