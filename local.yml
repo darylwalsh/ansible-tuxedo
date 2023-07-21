@@ -35,13 +35,13 @@
     register: shenv
   - name: asdf plugin erlang
     ansible.builtin.shell: |
-      source /home/{{ userinstall }}/.asdf/asdf.sh
+      source /home/{{ userinstall }}/.asdf/asdf.fish
       asdf plugin add erlang
     args:
       executable: fish
   - name: asdf install erlang (for Linux)
     ansible.builtin.shell: |
-      source /home/{{ userinstall }}/.asdf/asdf.sh
+      source /home/{{ userinstall }}/.asdf/asdf.fish
       asdf install erlang latest
 
 
