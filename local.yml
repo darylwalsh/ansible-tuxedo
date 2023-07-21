@@ -35,7 +35,7 @@
     ansible.builtin.shell: |
       asdf plugin add erlang
     args:
-      executable
+      executable: fish
   - name: asdf install erlang (for Linux)
     ansible.builtin.shell: |
       asdf install erlang latest
