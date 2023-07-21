@@ -3,9 +3,42 @@
   tasks: 
   - name: Install htop
     apt: name=htop
+  - name: install prerequisite libraries for erlang 
+    become: true
+    apt:
+      update_cache: yes
+      cache_valid_time: 86400 # 1day
+      state: latest
+      name:
+      - build-essential
+      - autoconf
+      - m4
+      - libncurses5-dev
+      - libwxgtk3.0-gtk3-dev
+      - libgl1-mesa-dev
+      - libglu1-mesa-dev
+      - libpng-dev
+      - libssh-dev
+      - unixodbc-dev
+      - xsltproc
+      - fop
+      - libxml2-utils
+      - libncurses-dev
+      - openjdk-11-jdk
+  - name: sh env
+    ansible.builtin.shell:
+    args:
+      cmd: fish
+      chdir: '/home/daryl/'
+    register: shenv
   - name: asdf plugin add elixir
     ansible.builtin.shell: |
+      {{ source }}
       asdf plugin add erlang
+    args:
+      executable
   - name: asdf install erlang (for Linux)
     ansible.builtin.shell: |
-      asdf install erlang latest
+      asdf insourceall erlang latest
+
+
