@@ -33,7 +33,6 @@
     register: shenv
   - name: asdf plugin add elixir
     ansible.builtin.shell: |
-      {{ source }}
       asdf plugin add erlang
     args:
       executable
