@@ -203,7 +203,7 @@
     become: true
     become_user: daryl
   - name: Install yt-dl using the pip executable
-    ansible.builtin.pop:
+    ansible.builtin.pip:
       name: yt-dl
       executable: pip
       extra_args: --user
