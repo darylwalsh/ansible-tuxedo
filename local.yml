@@ -127,6 +127,8 @@
   - name: cargo install treesitter-cli
     community.general.cargo: 
       name: tree-sitter-cli
+    become: true
+    become_user: daryl
 
 
 
