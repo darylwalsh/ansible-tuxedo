@@ -124,6 +124,78 @@
       executable: fish
     become: true
     become_user: daryl
+  - name: asdf plugin ripgrep
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf plugin add ripgrep 
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+    register: result
+    failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
+  - name: asdf install ripgrep (for Linux)
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf install ripgrep 11.0.2
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+  - name: asdf plugin lazygit
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf plugin add lazygit 
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+    register: result
+    failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
+  - name: asdf install lazygit (for Linux)
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf install lazygit latest
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+  - name: asdf plugin python
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf plugin add python 
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+    register: result
+    failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
+  - name: asdf install python (for Linux)
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf install python 3.11.3
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+  - name: asdf plugin nodejs
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+    register: result
+    failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
+  - name: asdf install nodejs (for Linux)
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf install nodejs 20.5.0
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
   - name: cargo install treesitter-cli
     community.general.cargo: 
       name: tree-sitter-cli
