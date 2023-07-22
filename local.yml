@@ -28,6 +28,7 @@
       - libncurses-dev
       - openjdk-11-jdk
       - xsel
+      - ffmpeg
   - name: ensure fonts directory
     file:
       path: "/home/{{userinstall}}/.fonts"
@@ -209,6 +210,12 @@
     become: true
     become_user: daryl
   
+  - name: shell install flatpak beta repo
+      flatpak remote-add flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
 
 
 
