@@ -28,7 +28,6 @@
       - libxml2-utils
       - libncurses-dev
       - openjdk-11-jdk
-      - xclip
       - xsel
   - name: ensure fonts directory
     file:
