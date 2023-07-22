@@ -201,8 +201,14 @@
       name: tree-sitter-cli
     become: true
     become_user: daryl
-
-
+  - name: Install yt-dl using the pip executable
+    ansible.builtin.pop:
+      name: yt-dl
+      executable: pip
+      extra_args: --user
+    become: true
+    become_user: daryl
+  
 
 
 
