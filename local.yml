@@ -48,6 +48,20 @@
       remote_src: yes
     become: true
     become_user: daryl
+  - name: Roboto mono exists
+    shell: "ls /home/a{{userinstall}}/.fonts/RobotoMono*Nerd*Font*Complete*"
+    register: robotomono_exists
+    ignore_errors: yes
+    become: true
+    become_user: daryl
+  - name: Download RobotoMono
+    when: robotomono_exists is failed
+    ansible.builtin.unarchive:
+      src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/RobotoMono.zip
+      dest: "/home/{{userinstall}}/.fonts/"
+      remote_src: yes
+    become: true
+    become_user: daryl
   - name: sh env
     ansible.builtin.shell:
     args:
@@ -74,16 +88,46 @@
       executable: fish
     become: true
     become_user: daryl
-  - name: asdf plugin elix
+  - name: asdf plugin elixir
     ansible.builtin.shell: |
       source /home/{{ userinstall }}/.asdf/asdf.fish
-      asdf plugin add erlang
+      asdf plugin add elixir
     args:
       executable: fish
     become: true
     become_user: daryl
     register: result
     failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
+  - name: asdf plugin rust
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf plugin add rust https://github.com/asdf-community/asdf-rust.git
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+    register: result
+    failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
+  - name: asdf install rust (for Linux)
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf install rust latest
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+  - name: asdf install elixir (for Linux)
+    ansible.builtin.shell: |
+      source /home/{{ userinstall }}/.asdf/asdf.fish
+      asdf install elixir latest
+    args:
+      executable: fish
+    become: true
+    become_user: daryl
+
+
+
+
 
 
 
