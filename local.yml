@@ -49,7 +49,7 @@
     become: true
     become_user: daryl
   - name: Roboto mono exists
-    shell: "ls /home/a{{userinstall}}/.fonts/RobotoMono*Nerd*Font*Complete*"
+    shell: "ls /home/{{userinstall}}/.fonts/RobotoMono*Nerd*Font*Complete*"
     register: robotomono_exists
     ignore_errors: yes
     become: true
