@@ -1,6 +1,5 @@
 - hosts: localhost
   become: true
-  become_user: daryl
   vars:
     userinstall: daryl
   tasks: 
@@ -33,29 +32,38 @@
     file:
       path: "{{ lookup('env', 'HOME') }}/.fonts"
       state: directory
+    become: true
+    become_user: daryl
   - name: Hack exists
     shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Hack*Nerd*Font*Complete*"
     register: hack_exists
     ignore_errors: yes
+    become: true
+    become_user: daryl
   - name: Download Hack
     when: hack_exists is failed
     ansible.builtin.unarchive:
       src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
       dest: "{{ lookup('env', 'HOME') }}/.fonts/"
       remote_src: yes
-
+    become: true
+    become_user: daryl
   - name: sh env
     ansible.builtin.shell:
     args:
       cmd: fish
       chdir: '/home/daryl/'
     register: shenv
+    become: true
+    become_user: daryl
   - name: asdf plugin erlang
     ansible.builtin.shell: |
       source /home/{{ userinstall }}/.asdf/asdf.fish
       asdf plugin add erlang
     args:
       executable: fish
+    become: true
+    become_user: daryl
     register: result
     failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
   - name: asdf install erlang (for Linux)
@@ -64,12 +72,16 @@
       asdf install erlang latest
     args:
       executable: fish
+    become: true
+    become_user: daryl
   - name: asdf plugin elix
     ansible.builtin.shell: |
       source /home/{{ userinstall }}/.asdf/asdf.fish
       asdf plugin add erlang
     args:
       executable: fish
+    become: true
+    become_user: daryl
     register: result
     failed_when: result.rc != 0 and result.stderr | regex_search('(Plugin named .* already added)') == ''
 
