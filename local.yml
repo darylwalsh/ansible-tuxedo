@@ -32,8 +32,8 @@
       - xsel
   - name: ensure fonts directory
     file:
-    path: "{{ lookup('env', 'HOME') }}/.fonts"
-    state: directory
+      path: "{{ lookup('env', 'HOME') }}/.fonts"
+      state: directory
   - name: Hack exists
     shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Hack*Nerd*Font*Complete*"
     register: hack_exists
